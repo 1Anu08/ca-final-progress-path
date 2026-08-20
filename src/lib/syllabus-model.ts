@@ -44,7 +44,7 @@ function buildPaper(raw: RawPaper): Paper {
     name: raw.name,
     short: raw.short,
     group: raw.group,
-    components: raw.components.map((component, ci) => {
+    components: raw.components.map((component) => {
       const componentId = `${raw.key}.${component.name ? slug(component.name) : "main"}`;
       let chapterNumber = 1;
       return {
@@ -74,7 +74,7 @@ function buildPaper(raw: RawPaper): Paper {
             };
           }),
         })),
-      } satisfies PaperComponent & { _ci?: number } as PaperComponent & { _ci?: number };
+      };
     }),
   };
 }

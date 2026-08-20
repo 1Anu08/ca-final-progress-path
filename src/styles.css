@@ -4,6 +4,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* CA Final Study Tracker — light mode only for v1. */
+@theme {
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, monospace;
+  --color-brand-red: var(--brand-red);
+  --color-brand-sage: var(--brand-sage);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-cream: var(--brand-cream);
+}
+
 /*
  * Design system definition.
  *
@@ -62,26 +73,35 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --radius: 1rem;
+
+  /* Brand palette */
+  --brand-red: oklch(0.532 0.146 24.4); /* #BD4444 */
+  --brand-sage: oklch(0.53 0.043 135.8); /* #677E61 */
+  --brand-blue: oklch(0.485 0.104 251.6); /* #3368A0 */
+  --brand-cream: oklch(0.911 0.041 82.3); /* #F1DEC4 */
+
+  --background: oklch(0.973 0.014 84);
+  --foreground: oklch(0.245 0.028 30);
+  --card: oklch(0.986 0.01 85);
+  --card-foreground: oklch(0.245 0.028 30);
+  --popover: oklch(0.986 0.01 85);
+  --popover-foreground: oklch(0.245 0.028 30);
+  --primary: var(--brand-red);
+  --primary-foreground: oklch(0.985 0.008 85);
+  --secondary: var(--brand-cream);
+  --secondary-foreground: oklch(0.3 0.03 30);
+  --muted: oklch(0.94 0.019 83);
+  --muted-foreground: oklch(0.46 0.024 40);
+  --accent: var(--brand-blue);
+  --accent-foreground: oklch(0.985 0.008 85);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.86 0.031 82);
+  --input: oklch(0.86 0.031 82);
+  --ring: var(--brand-red);
+  --shadow-card: 0 1px 2px oklch(0.3 0.03 30 / 0.06), 0 10px 24px -14px oklch(0.3 0.03 30 / 0.28);
+  --shadow-lift: 0 2px 4px oklch(0.3 0.03 30 / 0.08), 0 22px 40px -18px oklch(0.3 0.03 30 / 0.35);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -140,5 +160,69 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    background-image:
+      radial-gradient(circle at 12% -5%, oklch(0.911 0.041 82.3 / 0.75), transparent 45%),
+      radial-gradient(circle at 92% 8%, oklch(0.532 0.146 24.4 / 0.07), transparent 40%);
+    background-attachment: fixed;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
+}
+
+/* ---------- App utilities ---------- */
+
+@utility num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+@utility flip-scene {
+  perspective: 1600px;
+}
+
+@utility flip-inner {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+@keyframes letter-wave {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-34%);
+  }
+  70% {
+    transform: translateY(12%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.wave-letter {
+  display: inline-block;
+  animation: letter-wave 900ms cubic-bezier(0.34, 1.4, 0.5, 1) both;
+}
+
+@keyframes reveal-down {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.reveal-down {
+  animation: reveal-down 260ms ease-out both;
 }

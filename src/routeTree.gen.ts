@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PaperPaperKeyRouteImport } from './routes/paper.$paperKey'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PaperPaperKeyRoute = PaperPaperKeyRouteImport.update({
+  id: '/paper/$paperKey',
+  path: '/paper/$paperKey',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/paper/$paperKey': typeof PaperPaperKeyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/paper/$paperKey': typeof PaperPaperKeyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/paper/$paperKey': typeof PaperPaperKeyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/paper/$paperKey'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/paper/$paperKey'
+  id: '__root__' | '/' | '/paper/$paperKey'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PaperPaperKeyRoute: typeof PaperPaperKeyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/paper/$paperKey': {
+      id: '/paper/$paperKey'
+      path: '/paper/$paperKey'
+      fullPath: '/paper/$paperKey'
+      preLoaderRoute: typeof PaperPaperKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PaperPaperKeyRoute: PaperPaperKeyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

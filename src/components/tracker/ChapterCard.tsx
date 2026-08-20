@@ -8,7 +8,7 @@ import { useProgress } from "@/lib/use-progress";
 import type { Chapter } from "@/lib/syllabus-model";
 import { cn } from "@/lib/utils";
 
-function UnitRow({ unitId, label, title }: { unitId: string; label?: string; title: string }) {
+function UnitRow({ unitId, label, title }: { unitId: string; label?: string | undefined; title: string }) {
   const { progress } = useProgress();
   const [open, setOpen] = useState(false);
   const percent = itemPercent(progress, unitId);

@@ -5,7 +5,7 @@ export type Trackable = {
   id: string;
   title: string;
   /** Set when the trackable item is a unit inside a chapter. */
-  label?: string;
+  label?: string | undefined;
 };
 
 export type Chapter = {
@@ -18,8 +18,8 @@ export type Chapter = {
   self: Trackable | null;
 };
 
-export type Section = { id: string; title?: string; chapters: Chapter[] };
-export type PaperComponent = { id: string; name?: string; sections: Section[] };
+export type Section = { id: string; title?: string | undefined; chapters: Chapter[] };
+export type PaperComponent = { id: string; name?: string | undefined; sections: Section[] };
 export type Paper = {
   key: string;
   number: number;

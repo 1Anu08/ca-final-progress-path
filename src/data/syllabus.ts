@@ -13,8 +13,10 @@
  */
 
 export type RawUnit = { title: string };
-export type RawChapter = { title: string; units?: RawUnit[] };
-export type RawSection = { title?: string; chapters: RawChapter[] };
+/** `numbered: false` renders the item without a "Chapter N" label and does not consume a number. */
+export type RawChapter = { title: string; units?: RawUnit[]; numbered?: boolean };
+/** `startNumber` restarts chapter numbering inside this section (e.g. a new Part). */
+export type RawSection = { title?: string; startNumber?: number; chapters: RawChapter[] };
 export type RawComponent = { name?: string; sections: RawSection[] };
 
 export type RawPaper = {
@@ -285,7 +287,7 @@ export const RAW_PAPERS: RawPaper[] = [
               { title: "Miscellaneous Provisions" },
               { title: "Provisions to Counteract Unethical Tax Practices" },
               { title: "Tax Audit and Ethical Compliances" },
-              { title: "Questions Based on Significant Select Cases" },
+              { title: "Questions Based on Significant Select Cases", numbered: false },
             ],
           },
           {
@@ -355,6 +357,7 @@ export const RAW_PAPERS: RawPaper[] = [
           },
           {
             title: "PART II: CUSTOMS & FTP — MODULE 4",
+            startNumber: 1,
             chapters: [
               {
                 title: "Levy of and Exemptions from Customs Duty",
@@ -447,6 +450,7 @@ export const RAW_PAPERS: RawPaper[] = [
           },
           {
             title: "MODULE 2 — SECTION B: SECURITIES LAWS",
+            startNumber: 1,
             chapters: [
               {
                 title:
@@ -456,6 +460,7 @@ export const RAW_PAPERS: RawPaper[] = [
           },
           {
             title: "PART II: ECONOMIC LAWS",
+            startNumber: 1,
             chapters: [
               { title: "The Foreign Exchange Management Act, 1999" },
               { title: "The Foreign Contribution Regulation Act, 2010" },

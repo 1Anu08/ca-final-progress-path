@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-/**
- * Module-level flag: the wave plays once per application load, not on every
- * dashboard visit via client-side navigation. Computed during the first render
- * so SSR markup and the first client render agree.
- */
-let hasPlayed = false;
+const SESSION_KEY = "ca-final-study-tracker.wave-played";
 
 export function WaveTitle({ text }: { text: string }) {
-  const [play] = useState(() => {
-    if (hasPlayed) return false;
-    hasPlayed = true;
-    return true;
-  });
+  // Always false on the server so SSR markup and the first client render match;
+  // the wave is started right after hydration.
+  const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    let alreadyPlayed = false;
+    try {
+      alreadyPlayed = sessionStorage.getItem(SESSION_KEY) === "1";
+      sessionStorage.setItem(SESSION_KEY, "1");
+    } catch {
+      /* storage unavailable — still animate */
+    }
+    if (alreadyPlayed) return;
+    const frame = requestAnimationFrame(() => setPlay(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   const letters = [...text];
 
@@ -21,7 +27,7 @@ export function WaveTitle({ text }: { text: string }) {
       {letters.map((letter, index) => (
         <span
           key={`${letter}-${index}`}
-          className={play ? "wave-letter" : undefined}
+          className={play ? "wave-letter" : "inline-block"}
           style={play ? { animationDelay: `${index * 45}ms` } : undefined}
         >
           {letter === " " ? "\u00A0" : letter}

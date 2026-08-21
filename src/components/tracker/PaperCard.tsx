@@ -21,7 +21,7 @@ export function PaperCard({ paper, stat }: { paper: Paper; stat: Stat }) {
           onClick={() => setFlipped(true)}
           aria-hidden={flipped}
           tabIndex={flipped ? -1 : 0}
-          className="flip-face absolute inset-0 flex flex-col justify-between rounded-3xl border border-border bg-card p-6 text-left shadow-[var(--shadow-card)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]"
+          className="flip-face absolute inset-0 flex flex-col justify-between rounded-3xl border border-border bg-card p-6 text-left shadow-[var(--shadow-card)] transition-shadow duration-300 hover:shadow-[var(--shadow-lift)]"
         >
           <span className="num text-xs font-semibold uppercase tracking-[0.2em] text-brand-blue">
             Paper {paper.number}

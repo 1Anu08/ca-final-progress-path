@@ -39,7 +39,7 @@ function Dashboard() {
       <header className="flex flex-col items-center gap-8">
         <div className="flex flex-col items-center gap-3">
           <span className="num rounded-full border border-brand-red/25 bg-brand-cream px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-brand-red">
-            First Study · Version 1
+            FIRST STUDY
           </span>
           <WaveTitle text="CA FINAL STUDY TRACKER" />
         </div>

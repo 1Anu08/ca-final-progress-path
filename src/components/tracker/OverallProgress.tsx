@@ -46,9 +46,6 @@ export function OverallProgress({ percent }: { percent: number }) {
           </span>
         </div>
       </div>
-      <p className="num text-xs uppercase tracking-[0.2em] text-muted-foreground">
-        6 papers &middot; equal weight
-      </p>
     </div>
   );
 }

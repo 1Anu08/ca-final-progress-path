@@ -36,10 +36,13 @@ export function isItemComplete(progress: ProgressState, id: string): boolean {
 }
 
 function statFromIds(progress: ProgressState, ids: string[]): Stat {
-  const completed = ids.filter((id) => isItemComplete(progress, id)).length;
   const total = ids.length;
-  return { completed, total, percent: total ? (completed / total) * 100 : 0 };
+  const percent =
+    total === 0 ? 0 : ids.reduce((sum, id) => sum + itemPercent(progress, id), 0) / total;
+  const completed = ids.filter((id) => isItemComplete(progress, id)).length;
+  return { completed, total, percent };
 }
+
 
 export function chapterStat(progress: ProgressState, chapter: Chapter): Stat {
   return statFromIds(

@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 /**
  * Module-level flag: the wave plays once per application load, not on every
- * dashboard visit via client-side navigation.
+ * dashboard visit via client-side navigation. Computed during the first render
+ * so SSR markup and the first client render agree.
  */
 let hasPlayed = false;
 
 export function WaveTitle({ text }: { text: string }) {
-  const [play, setPlay] = useState(false);
-
-  useEffect(() => {
-    if (hasPlayed) return;
+  const [play] = useState(() => {
+    if (hasPlayed) return false;
     hasPlayed = true;
-    setPlay(true);
-  }, []);
+    return true;
+  });
 
   const letters = [...text];
 

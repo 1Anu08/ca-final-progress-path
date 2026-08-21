@@ -184,12 +184,17 @@
 @utility flip-inner {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  /* Symmetric, snappy easing so flipping back feels identical to flipping in. */
+  transition: transform 480ms cubic-bezier(0.4, 0.1, 0.25, 1);
+  will-change: transform;
 }
 
 @utility flip-face {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  /* Keep both faces on their own composited layer to avoid a first-frame stall. */
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 @keyframes letter-wave {
